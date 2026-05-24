@@ -1,0 +1,74 @@
+<div class="container-fluid px-4 py-4 bg-white rounded-3 shadow-sm mt-3">
+
+  <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3 border-light-subtle">
+    <div>
+      <h2 class="text-dark fw-bold mb-1 text-uppercase tracking-wide fs-3">
+        Conversor de Divisas
+      </h2>
+      <p class="text-muted small mb-0">Cotización de monedas en tiempo real vía Web Service</p>
+    </div>
+    <span class="badge bg-success text-white fs-6 fw-bold px-3 py-2 shadow-sm rounded-pill">
+      API Live Rates
+    </span>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      
+      <div class="card border-0 rounded-3 p-4 bg-dark text-white shadow-lg">
+        
+        <div class="mb-3">
+          <label class="form-label text-light-subtle fw-bold small text-uppercase">Monto a convertir:</label>
+          <div class="input-group">
+            <span class="input-group-text bg-secondary-subtle border-0 text-dark"><i class="bi bi-cash-coin text-success fs-5"></i></span>
+            <input type="number" class="form-control form-control-lg bg-secondary text-white fw-bold border-0" 
+                   [(ngModel)]="monto" (input)="ejecutarConversion()" placeholder="Ingrese el valor">
+          </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-6">
+            <label class="form-label text-light-subtle fw-bold small text-uppercase">Moneda Origen:</label>
+            <select class="form-select bg-secondary text-white fw-semibold py-2 border-0" 
+                    [(ngModel)]="monedaOrigen" (change)="ejecutarConversion()">
+              <option *ngFor="let m of listaMonedas" [value]="m">{{ m }}</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <label class="form-label text-light-subtle fw-bold small text-uppercase">Moneda Destino:</label>
+            <select class="form-select bg-secondary text-white fw-semibold py-2 border-0" 
+                    [(ngModel)]="monedaDestino" (change)="ejecutarConversion()">
+              <option *ngFor="let m of listaMonedas" [value]="m">{{ m }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="border-top border-secondary pt-3 text-center">
+          
+          <div *ngIf="cargando" class="py-2">
+            <div class="spinner-border text-success spinner-border-sm me-2" role="status"></div>
+            <span class="text-light-subtle small">Calculando equivalencia...</span>
+          </div>
+
+          <div *ngIf="!cargando && resultado !== null && !errorMensaje" class="py-2">
+            <span class="text-light-subtle small text-uppercase fw-bold d-block mb-2 tracking-wider">Resultado de la Operación</span>
+            <h3 class="fw-extrabold mb-0 fs-3 lh-base text-white">
+              {{ monto }} <span class="text-success fs-4 fw-bold">{{ monedaOrigen }}</span> 
+              = 
+              <span class="text-info font-digital">{{ resultado | number:'1.2-2' }}</span> <span class="text-info fs-4 fw-bold">{{ monedaDestino }}</span>
+            </h3>
+          </div>
+
+          <div *ngIf="errorMensaje" class="alert alert-danger mb-0 py-2 small" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ errorMensaje }}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

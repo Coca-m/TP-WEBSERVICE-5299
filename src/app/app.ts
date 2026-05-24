@@ -1,12 +1,17 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router'; // Necesario para cargar los componentes de las rutas
+import { Navbar } from './components/navbar/navbar'; // Tu objeto Navbar
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [
+    RouterOutlet, 
+    Navbar // Registramos tu Navbar para que el HTML principal lo dibuje con sus estilos
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
-  protected readonly title = signal('tp-webservice-5299');
+  // Tu clase principal limpia
 }

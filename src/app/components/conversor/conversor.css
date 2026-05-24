@@ -1,0 +1,28 @@
+/* Forzar que los textos y números resalten */
+.fw-extrabold {
+  font-weight: 800;
+}
+
+/* Estilo para los inputs oscuros al hacer foco */
+.form-control:focus, .form-select:focus {
+  background-color: #495057 !important;
+  color: #ffffff !important;
+  border-color: #198754 !important;
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
+}
+
+/* Hace que la flechita del selector se adapte al modo oscuro */
+.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+/* Evita que aparezcan las flechas nativas del input de números */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.text-info {
+  color: #0dcaf0 !important; /* Cyan eléctrico de Bootstrap para el valor convertido */
+}

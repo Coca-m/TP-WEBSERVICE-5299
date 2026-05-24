@@ -1,0 +1,71 @@
+<div class="container-fluid px-4 py-4 bg-white rounded-3 shadow-sm mt-3">
+
+  <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3 border-light-subtle">
+    <div>
+      <h2 class="text-dark fw-bold mb-1 text-uppercase tracking-wide fs-3">
+        Sintetizador de Voz (Text-to-Speech)
+      </h2>
+      <p class="text-muted small mb-0">Conversión de texto a audio mediante Inteligencia Artificial</p>
+    </div>
+    <span class="badge bg-danger text-white fs-6 fw-bold px-3 py-2 shadow-sm rounded-pill">
+      OpenAI Engine
+    </span>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      
+      <div class="card border-0 rounded-3 p-4 bg-dark text-white shadow-lg">
+        
+        <div class="mb-3">
+          <label class="form-label text-light-subtle fw-bold small text-uppercase">Texto a procesar:</label>
+          <textarea class="form-control bg-secondary text-white border-0" 
+                    rows="4" [(ngModel)]="textoUsuario" 
+                    placeholder="Escriba aquí lo que desea que la IA reproduzca en voz alta..."></textarea>
+          <div class="form-text text-muted small mt-1">Límite recomendado: hasta 250 caracteres por bloque.</div>
+        </div>
+
+        <div class="row align-items-end g-3 mb-4">
+          <div class="col-12 col-sm-7">
+            <label class="form-label text-light-subtle fw-bold small text-uppercase">Perfil de Voz / Narrador:</label>
+            <select class="form-select bg-secondary text-white fw-semibold border-0 py-2" [(ngModel)]="vozSeleccionada">
+              <option *ngFor="let voz of listaVoces" [value]="voz.id">{{ voz.nombre }}</option>
+            </select>
+          </div>
+          
+          <div class="col-12 col-sm-5">
+            <button class="btn btn-danger w-100 fw-bold text-uppercase py-2 rounded-3 shadow-sm d-flex align-items-center justify-content-center" 
+                    [disabled]="cargando" (click)="generarAudio()">
+              <i class="bi bi-cpu-fill me-2" *ngIf="!cargando"></i>
+              {{ cargando ? 'Sintetizando...' : 'Generar Audio' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="border-top border-secondary pt-3 text-center">
+          
+          <div *ngIf="cargando" class="py-3">
+            <div class="spinner-border text-danger mb-2" role="status"></div>
+            <p class="text-light-subtle small mb-0">Modelando ondas de sonido artificiales...</p>
+          </div>
+
+          <div *ngIf="!cargando && audioUrl" class="bg-secondary-subtle rounded-3 p-3 text-center animate-fade-in shadow-inner">
+            <span class="text-dark small text-uppercase fw-bold d-block mb-2 tracking-wider">
+              <i class="bi bi-volume-up-fill text-danger me-1"></i> Audio Listo para reproducir
+            </span>
+            <audio #reproductorAudio [src]="audioUrl" controls class="w-100 rounded-pill mt-1 custom-audio-player"></audio>
+          </div>
+
+          <div *ngIf="errorMensaje" class="alert alert-warning mb-0 py-3 small text-start" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2 fs-5 text-warning align-middle"></i>
+            <span class="align-middle">{{ errorMensaje }}</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

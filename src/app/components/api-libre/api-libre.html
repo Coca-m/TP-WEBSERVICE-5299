@@ -1,1 +1,61 @@
-<p>api-libre works!</p>
+<div class="container-fluid px-4 py-4 bg-white rounded-3 shadow-sm mt-3">
+
+  <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3 border-light-subtle">
+    <div>
+      <h2 class="text-dark fw-bold mb-1 text-uppercase tracking-wide fs-3">
+        Generador de Códigos QR
+      </h2>
+      <p class="text-muted small mb-0">Módulo útil para control de accesos, links y credenciales en Proyectos Finales</p>
+    </div>
+    <span class="badge bg-warning text-dark fs-6 fw-bold px-3 py-2 shadow-sm rounded-pill">
+      Sección E: API Libre
+    </span>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      
+      <div class="card border-0 rounded-3 p-4 bg-dark text-white shadow-lg">
+        
+        <div class="mb-4">
+          <label class="form-label text-light-subtle fw-bold small text-uppercase">Texto, Enlace o ID a transformar:</label>
+          <div class="input-group">
+            <span class="input-group-text bg-secondary-subtle border-0 text-dark"><i class="bi bi-qr-code text-warning fs-5"></i></span>
+            <input type="text" class="form-control form-control-lg bg-secondary text-white fw-bold border-0" 
+                   [(ngModel)]="textoIngresado" placeholder="Escriba un link o texto aquí...">
+          </div>
+          <div class="form-text text-muted small mt-2">Cualquier dispositivo que escanee el código leerá este valor en tiempo real.</div>
+        </div>
+
+        <div class="mb-4">
+          <button class="btn btn-warning w-100 fw-bold text-uppercase py-2 rounded-3 shadow-sm text-dark" 
+                  [disabled]="cargando" (click)="generarCodigoQR()">
+            {{ cargando ? 'Codificando Datos...' : 'Generar Código QR' }}
+          </button>
+        </div>
+
+        <div class="border-top border-secondary pt-4 text-center">
+          
+          <div *ngIf="cargando" class="py-4">
+            <div class="spinner-border text-warning mb-2" role="status"></div>
+            <p class="text-light-subtle small mb-0">Dibujando matriz de puntos...</p>
+          </div>
+
+          <div *ngIf="!cargando && qrResultadoUrl" class="bg-white rounded-3 p-4 d-inline-block shadow-lg border border-light animate-fade-in">
+            <span class="text-dark small text-uppercase fw-bold d-block mb-3 tracking-wider">
+              <i class="bi bi-check-circle-fill text-success me-1"></i> Matriz Generada
+            </span>
+            
+            <img [src]="qrResultadoUrl" alt="Código QR del Servidor" class="img-fluid rounded border shadow-sm mb-2" style="max-width: 200px;">
+            
+            <p class="text-muted small mb-0 text-truncate mt-2 px-2" style="max-width: 220px;">{{ textoIngresado }}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
